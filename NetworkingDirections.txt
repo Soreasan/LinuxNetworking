@@ -1,0 +1,16 @@
+On the Linux Server machine in the commandline type "ifconfig" to get the ip address.
+Under the information provided look for "Ethernet HWaddr" and then near that should be
+a section that says "inet addr" with a number like 192.168.44.222.  
+On the client in the commandline type "ssh username@192.168.44.222" to connect.
+For example if my username is "kenneth" then I would type "ssh kenneth@192.168.44.222" 
+to connect.  After we connect via ssh it will ask for the password.  After you type that
+in you'll be connected and you can use lsof and nmap and other stuff freely. 
+
+The program that allows the Linux machine to receive connections is called "openssh-server".
+If we have errors with the ssh I assume that's what we'll be googling.  
+Some common commands for openssh-server are:
+sudo restart ssh
+sudo systemctl restart ssh
+
+The website I referenced for openssh-server is:
+https://help.ubuntu.com/community/SSH/OpenSSH/Configuring
