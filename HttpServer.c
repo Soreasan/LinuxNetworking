@@ -26,7 +26,7 @@ unsigned char *  readContentsOfFile(char * filename)
     if(f)
     {
         fseek(f, 0, SEEK_END);
-        length = ftell(f);
+        length = ftell(f) * 4;
         fseek(f, 0, SEEK_SET);
         buffer = malloc(length);
         if(buffer)
@@ -44,19 +44,17 @@ unsigned char *  readContentsOfFile(char * filename)
     }
 }
 
-unsigned char * getFileContents(unsigned char *s, int n)
-{
-    return readContentsOfFile(s);
-}
-
 void getService(int in, int out)
 {
+    printf("Creating a buffer with an arbitrary size of 1024\n");
     unsigned char buf[1024];
+    printf("Creating output which is a character pointer\n");
     unsigned char * output;
     int count;
     while((count = read(in, buf, 1024)) > 0)
     {
-        output = getFileContents(buf, count);
+        output = readContentsOfFile(buf);
+        //write(out, output, count);
         write(out, output, count);
         printf("\n");
     }
@@ -68,6 +66,7 @@ void main()
     struct sockaddr_in server, client;
     struct servent *service;
 
+    printf("Creating the socket.\n");
     sock = socket(AF_INET, SOCK_STREAM, 0);
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -77,10 +76,11 @@ void main()
     printf("listening...\n");
 
     while(1){
-        client_len = sizeof(client);
-    fd = accept(sock, (struct sockaddr *)&client, &client_len);
-    printf("got connection\n");
-    getService(fd, fd);
-    close(fd);
+        //client_len = sizeof(client);
+        //fd = accept(sock, (struct sockaddr *)&client, &client_len);
+        fd = accept(sock, (struct sockaddr *)&client, &client_len);
+        printf("got connection\n");
+        getService(fd, fd);
+        close(fd);
     }
 }
