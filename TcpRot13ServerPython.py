@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 # To run this type python [filename]
 
+# Kenneth Adair
+# Taken from Linux Networking course on Pluralsight
+
 from socket import *
 import codecs
 
