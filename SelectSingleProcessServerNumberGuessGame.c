@@ -1,7 +1,18 @@
 /*  Kenneth Adair
     Taken from Linux Networking course from Pluralsight. 
+
     Number-guessing server. This is an example of a
-    single-process, concurrent server using TCP and select()  */
+    single-process, concurrent server using TCP and select()  
+
+    Notes about select():
+    select(max, rfds, wfds, xfds, timeout);
+    rfds - set of descriptors to monitor for reading
+    wfds - set of descriptors to monitor for writing
+    xfds - set of descriptors to monitor for "exceptional conditions"
+    timeout - we can specify a timeout, if we don't want one just pass NULL
+    max should be the highest file descriptor + 1
+    select will block until at least one of the descriptors is ready
+*/
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <sys/time.h>
