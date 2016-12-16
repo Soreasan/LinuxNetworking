@@ -36,6 +36,7 @@ int main(int argc, char * argv[])
     int sock, msgsock, client_len;
     struct sockaddr_in server, client;
 
+    //This line of code prevents zombies.
     signal(SIGCHLD, SIG_IGN);
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) 
